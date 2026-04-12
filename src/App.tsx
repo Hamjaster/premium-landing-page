@@ -1,0 +1,270 @@
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MessageCircle, Palette, Users, Gem, Lightbulb } from 'lucide-react';
+import AnimatedGradientBackground from './components/AnimatedGradientBackground';
+import ApproachSection from './components/ApproachSection';
+import DetailsSection from './components/DetailsSection';
+import EcosystemCard from './components/EcosystemCard';
+import HorizontalScrollSection from './components/HorizontalScrollSection';
+import RingShowcaseSection from './components/RingShowcaseSection';
+import SiteFooter from './components/SiteFooter';
+
+gsap.registerPlugin(ScrollTrigger);
+
+function App() {
+  const aboutTextRef = useRef<HTMLDivElement>(null);
+  const ecosystemSectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useGSAP(() => {
+    if (!aboutTextRef.current) return;
+
+    // About text clip reveal from left to right
+    gsap.fromTo(
+      aboutTextRef.current,
+      { clipPath: 'inset(0 100% 0 0)' },
+      {
+        clipPath: 'inset(0 0% 0 0)',
+        scrollTrigger: {
+          trigger: aboutTextRef.current,
+          start: 'top 80%',
+          end: 'bottom 40%',
+          scrub: 2,
+        },
+      },
+    );
+  });
+
+  // Ecosystem section animations
+  useGSAP(() => {
+    if (!ecosystemSectionRef.current) return;
+
+    const cards = cardRefs.current.filter(Boolean);
+
+    // Cards float in from their respective directions
+    cards.forEach((card, i) => {
+      const isLeft = i % 2 === 0;
+      const isTop = i < 2;
+
+      gsap.fromTo(
+        card,
+        {
+          opacity: 0,
+          x: isLeft ? -80 : 80,
+          y: isTop ? -60 : 60,
+          scale: 0.9,
+        },
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: ecosystemSectionRef.current,
+            start: 'top 70%',
+            end: 'top 30%',
+            scrub: 1.5,
+          },
+        },
+      );
+    });
+
+  });
+
+  return (
+    <main className="text-white">
+      {/* Animated gradient background */}
+      <AnimatedGradientBackground />
+
+      {/* Global fixed header */}
+      <header className="fixed top-0 left-0 right-0 z-50 mx-auto flex items-center justify-between w-[min(1380px,calc(100%-64px))] gap-5 pt-[18px] max-[1100px]:w-[calc(100%-36px)] max-[1100px]:grid-cols-[auto_auto] max-[1100px]:gap-y-4">
+        <div className="flex items-center gap-[10px] justify-self-start text-[#e1d5b6] max-[1100px]:order-1">
+          <div className="flex flex-col gap-[2px] text-[26px] font-medium leading-[0.84] tracking-[0.04em] max-[768px]:text-[22px]">
+            <span>ERTOA</span>
+            <span className="text-[16px] leading-none tracking-[0.12em] max-[768px]:text-[14px]">
+              ERTAQA
+            </span>
+          </div>
+          <div className="relative h-[44px] w-[52px] opacity-95">
+            <span className="absolute inset-[3px] rounded-[28px] border-2 border-[#d5c9ab]" />
+            <span className="absolute right-4 top-2 h-[27px] w-[20px] rotate-12 rounded-[20px] border-2 border-[#d5c9ab]" />
+          </div>
+        </div>
+
+        <nav
+          aria-label="Primary"
+          className="flex items-center gap-[clamp(22px,2.3vw,48px)] max-[1100px]:static max-[1100px]:order-3 max-[1100px]:col-span-2 max-[1100px]:translate-x-0 max-[1100px]:justify-center max-[1100px]:gap-x-[22px] max-[1100px]:gap-y-4 max-[1100px]:flex-wrap"
+        >
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">HOME</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">ABOUT</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">WHY US</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">SERVICES</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">CONTACT US</a>
+        </nav>
+
+        <div
+          role="group"
+          aria-label="Language switch"
+          className="inline-flex justify-self-end items-center gap-1.5 rounded-full border border-white/15 bg-white/7 p-1.5 backdrop-blur-[10px] max-[1100px]:order-2"
+        >
+          <button
+            type="button"
+            className="h-[34px] w-[34px] rounded-full border border-white/16 bg-black/40 text-[12px] font-bold text-white/90"
+          >EN</button>
+          <button
+            type="button"
+            className="h-[34px] w-[34px] rounded-full bg-transparent text-[12px] font-bold text-white/90"
+          >AR</button>
+        </div>
+      </header>
+
+      {/* ===== HERO SECTION ===== */}
+      <section aria-label="Hero" className="relative h-screen">
+        <div className="pt-[80px]">
+          <div className="h-[120px] max-[1100px]:h-[100px] max-[768px]:h-[23vh]" />
+
+          <div className="relative z-20 mx-auto w-[min(1000px,calc(100%-32px))] text-center text-[#dfd1b3]">
+            <h1 className="flex flex-col gap-[clamp(4px,1vw,18px)] text-[clamp(2.7rem,6.2vw,5rem)] font-light leading-[1.02] tracking-[-0.02em] max-[768px]:leading-[1.07]">
+              <span>Where Emotion</span>
+              <span>
+                Becomes{' '}
+                <em className="not-italic font-normal text-[#eadfc0] [text-shadow:0_0_11px_rgba(234,223,192,0.85),0_0_28px_rgba(234,223,192,0.35),0_0_54px_rgba(234,223,192,0.28)]">
+                  Tangible
+                </em>
+              </span>
+            </h1>
+
+            <button
+              type="button"
+              className="cursor-pointer mt-7 px-12 py-4 rounded-full border border-white/5 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.12),rgba(255,255,255,0.035))] text-[16px] font-medium leading-none text-[#f2f2f2] shadow-[0_4px_20px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.24)] backdrop-blur-[4px] transition-transform duration-200 hover:-translate-y-px hover:border-white/25 max-[768px]:h-[46px] max-[768px]:min-w-[148px] max-[768px]:text-[1.08rem]"
+            >
+              Get Started
+            </button>
+          </div>
+
+          <div className="h-[50vh] w-full" />
+        </div>
+      </section>
+
+      {/* ===== ABOUT SECTION ===== */}
+      <section aria-label="About" className="relative h-screen">
+        <div className="pt-[80px]">
+          <div className="h-[18vh]" />
+
+          <div
+            ref={aboutTextRef}
+            className="relative z-[5] mx-auto w-[min(900px,calc(100%-32px))] text-center text-[#c8dcc8]"
+          >
+            <p className="text-[clamp(1.5rem,3.2vw,2.4rem)] font-light leading-[1.5] tracking-[0.01em]">
+              We are Ertqa — Saudi Arabia's leading ecosystem uniting design, craftsmanship, and manufacturing.
+            </p>
+          </div>
+
+          <div className="h-[60vh] w-full" />
+        </div>
+      </section>
+      
+      {/* Fixed bottom image */}                                                                                                                                                                          
+           <div                                                                                         
+             ref={imageRef}                                                                             
+
+            aria-hidden="true"                                                                         
+            className="pointer-events-none fixed left-1/2 -bottom-1/2 z-10 w-[103vw] -translate-x-1/2 ml-3.5 max-[768px]:w-[95vw]"                                                 
+            >                                                                                            
+             <img                                                                                       
+              src={watchHeroImage}                                                                     
+                alt=""                                                                                   
+               className="h-auto w-full object-contain"                                                 
+              />
+            </div>                                                                                       
+                                                                                                         
+
+
+      {/* ===== ECOSYSTEM SECTION ===== */}
+      <section ref={ecosystemSectionRef} aria-label="Ecosystem" className="relative h-screen">
+        <div className="relative mx-auto flex h-full w-[min(1380px,calc(100%-64px))] items-center justify-center max-[1100px]:w-[calc(100%-36px)]">
+          {/* Cards grid */}
+          <div className="relative z-20 grid h-full w-full grid-cols-2 grid-rows-2 gap-6 py-16 max-[768px]:grid-cols-1 max-[768px]:grid-rows-4 max-[768px]:gap-4">
+            {/* Top-left card */}
+            <div
+              ref={(el) => { cardRefs.current[0] = el; }}
+              className="flex items-start justify-start pt-8 max-[768px]:order-1 max-[768px]:pt-0"
+            >
+              <EcosystemCard
+                icon={<Palette size={26} strokeWidth={1.8} />}
+                title="An Integrated Ecosystem That Unites Creativity And Manufacturing."
+              />
+            </div>
+
+            {/* Top-right card */}
+            <div
+              ref={(el) => { cardRefs.current[1] = el; }}
+              className="flex items-start justify-end pt-8 max-[768px]:order-2 max-[768px]:pt-0"
+            >
+              <EcosystemCard
+                icon={<Users size={26} strokeWidth={1.8} />}
+                title="A Dedicated Team Driving Success And Trusted Partnerships."
+              />
+            </div>
+
+            {/* Bottom-left card */}
+            <div
+              ref={(el) => { cardRefs.current[2] = el; }}
+              className="flex items-end justify-start pb-8 max-[768px]:order-3 max-[768px]:pb-0"
+            >
+              <EcosystemCard
+                icon={<Gem size={26} strokeWidth={1.8} />}
+                title="A Saudi Identity Fusing Authenticity With Modern Expression."
+              />
+            </div>
+
+            {/* Bottom-right card */}
+            <div
+              ref={(el) => { cardRefs.current[3] = el; }}
+              className="flex items-end justify-end pb-8 max-[768px]:order-4 max-[768px]:pb-0"
+            >
+              <EcosystemCard
+                icon={<Lightbulb size={26} strokeWidth={1.8} />}
+                title="Advanced Manufacturing Enabling Customization And Innovation."
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== HORIZONTAL SCROLL SECTION ===== */}
+      <HorizontalScrollSection />
+
+      {/* ===== APPROACH SECTION ===== */}
+      <ApproachSection />
+
+      {/* ===== DETAILS SECTION ===== */}
+      <DetailsSection />
+
+      {/* ===== SIGNATURE RING SECTION ===== */}
+      <RingShowcaseSection />
+
+      {/* ===== FOOTER ===== */}
+      <SiteFooter />
+
+      {/* WhatsApp button */}
+      <button
+        type="button"
+        className="fixed right-[clamp(18px,2.5vw,36px)] bottom-[clamp(22px,3.2vw,36px)] z-20 grid h-[72px] w-[72px] place-items-center rounded-full border border-white/30 bg-white/10 text-white shadow-[0_8px_28px_rgba(0,0,0,0.45)] backdrop-blur-[10px] transition-transform duration-200 hover:scale-[1.02] max-[768px]:h-[62px] max-[768px]:w-[62px]"
+        aria-label="Open WhatsApp"
+      >
+        <MessageCircle
+          aria-hidden="true"
+          className="h-8 w-8 max-[768px]:h-7 max-[768px]:w-7"
+          strokeWidth={2.2}
+        />
+      </button>                                                                                         
+    </main>
+  );
+}
+
+export default App;
