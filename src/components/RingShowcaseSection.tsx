@@ -32,11 +32,10 @@ export default function RingShowcaseSection() {
           <div className="max-w-[36rem]">
             <p className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-white/34">The Final Object</p>
             <h2 className="mt-5 text-[clamp(2.25rem,4.8vw,4.2rem)] font-light leading-[1.05] tracking-[-0.03em] text-white/92">
-              A Closing Scene Built Around The Ring.
+Partnership As A Value
             </h2>
             <p className="mt-6 text-[clamp(0.95rem,1.25vw,1.05rem)] font-light leading-[1.8] text-white/50">
-              The ring becomes the final visual anchor, presented like a signature object in a luxury editorial spread.
-            </p>
+Rooted in Saudi heritage, we deliver world-class products            </p>
 
             <div className="mt-8 h-px w-20 bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
 

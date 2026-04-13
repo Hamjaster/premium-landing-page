@@ -3,23 +3,34 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MessageCircle, Palette, Users, Gem, Lightbulb } from 'lucide-react';
+import watchHeroImage from './assets/ring.avif';
 import AnimatedGradientBackground from './components/AnimatedGradientBackground';
-import ApproachSection from './components/ApproachSection';
-import DetailsSection from './components/DetailsSection';
 import EcosystemCard from './components/EcosystemCard';
 import HorizontalScrollSection from './components/HorizontalScrollSection';
-import RingShowcaseSection from './components/RingShowcaseSection';
-import SiteFooter from './components/SiteFooter';
+import ApproachSection from './components/ApproachSection';
+import { RingShowcaseSection, SiteFooter } from './components';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const imageRef = useRef<HTMLDivElement>(null);
   const aboutTextRef = useRef<HTMLDivElement>(null);
   const ecosystemSectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
-    if (!aboutTextRef.current) return;
+    if (!imageRef.current || !aboutTextRef.current) return;
+
+    // Image scales up slowly over a longer scroll distance
+    gsap.to(imageRef.current, {
+      scale: 1.18,
+      scrollTrigger: {
+        trigger: document.documentElement,
+        start: 'top top',
+        end: '+=300vh',
+        scrub: 2,
+      },
+    });
 
     // About text clip reveal from left to right
     gsap.fromTo(
@@ -39,7 +50,7 @@ function App() {
 
   // Ecosystem section animations
   useGSAP(() => {
-    if (!ecosystemSectionRef.current) return;
+    if (!ecosystemSectionRef.current || !imageRef.current) return;
 
     const cards = cardRefs.current.filter(Boolean);
 
@@ -73,6 +84,22 @@ function App() {
       );
     });
 
+    // Fixed bottom image shrinks and floats to center when ecosystem section is reached
+    gsap.to(imageRef.current, {
+      width: '840px',
+      bottom: '25%',
+      xPercent: -50,
+      yPercent: -7,
+      scale: 0.99,
+      transformOrigin: '50% 50%',
+      overwrite: true,
+      scrollTrigger: {
+        trigger: ecosystemSectionRef.current,
+        start: 'top 65%',
+        end: 'top 20%',
+        scrub: 0.5,
+      },
+    });
   });
 
   return (
@@ -85,9 +112,7 @@ function App() {
         <div className="flex items-center gap-[10px] justify-self-start text-[#e1d5b6] max-[1100px]:order-1">
           <div className="flex flex-col gap-[2px] text-[26px] font-medium leading-[0.84] tracking-[0.04em] max-[768px]:text-[22px]">
             <span>ERTOA</span>
-            <span className="text-[16px] leading-none tracking-[0.12em] max-[768px]:text-[14px]">
-              ERTAQA
-            </span>
+        
           </div>
           <div className="relative h-[44px] w-[52px] opacity-95">
             <span className="absolute inset-[3px] rounded-[28px] border-2 border-[#d5c9ab]" />
@@ -173,7 +198,7 @@ function App() {
              ref={imageRef}                                                                             
 
             aria-hidden="true"                                                                         
-            className="pointer-events-none fixed left-1/2 -bottom-1/2 z-10 w-[103vw] -translate-x-1/2 ml-3.5 max-[768px]:w-[95vw]"                                                 
+            className="pointer-events-none fixed left-1/2 -bottom-1/2 z-10 w-[98vw] -translate-x-1/2 ml-3.5 max-[768px]:w-[95vw]"                                                 
             >                                                                                            
              <img                                                                                       
               src={watchHeroImage}                                                                     
@@ -238,17 +263,8 @@ function App() {
 
       {/* ===== HORIZONTAL SCROLL SECTION ===== */}
       <HorizontalScrollSection />
-
-      {/* ===== APPROACH SECTION ===== */}
       <ApproachSection />
-
-      {/* ===== DETAILS SECTION ===== */}
-      <DetailsSection />
-
-      {/* ===== SIGNATURE RING SECTION ===== */}
       <RingShowcaseSection />
-
-      {/* ===== FOOTER ===== */}
       <SiteFooter />
 
       {/* WhatsApp button */}
@@ -263,6 +279,7 @@ function App() {
           strokeWidth={2.2}
         />
       </button>                                                                                         
+
     </main>
   );
 }
