@@ -150,7 +150,7 @@ function CardMedia({ media }: { media: ScrollCard['media'] }) {
             preload="metadata"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#0d1a14] via-[#0a1210] to-[#080e0c]" />
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#2A0F0F] via-[#1A0A0A] to-[#0D0505]" />
         )}
       </div>
     );
@@ -197,13 +197,13 @@ export default function HorizontalScrollSection() {
       aria-label="Our Craft"
       className="relative z-30 overflow-hidden"
     >
-      {/* Glassmorphism background */}
-      <div className="absolute inset-0 bg-[#081a14]" />
+      {/* Red-themed background */}
+      <div className="absolute inset-0 bg-[#1A0A0A]" />
       <div
         className="absolute inset-0 opacity-40"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 30% 40%, rgba(8, 38, 31, 0.8) 0%, transparent 70%)',
+            'radial-gradient(ellipse 80% 60% at 30% 40%, rgba(230, 57, 70, 0.25) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
       />
@@ -211,7 +211,7 @@ export default function HorizontalScrollSection() {
         className="absolute inset-0 opacity-25"
         style={{
           background:
-            'radial-gradient(ellipse 60% 50% at 70% 60%, rgba(99, 82, 43, 0.3) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 70% 60%, rgba(255, 107, 53, 0.2) 0%, transparent 70%)',
           filter: 'blur(100px)',
         }}
       />
@@ -219,7 +219,7 @@ export default function HorizontalScrollSection() {
         className="absolute inset-0 opacity-15"
         style={{
           background:
-            'radial-gradient(circle at 50% 50%, rgba(13, 61, 49, 0.5) 0%, transparent 60%)',
+            'radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.15) 0%, transparent 60%)',
           filter: 'blur(60px)',
         }}
       />
@@ -243,11 +243,11 @@ export default function HorizontalScrollSection() {
         <div className="flex h-screen w-screen shrink-0 items-center justify-center">
           <div className="animate-title-fade text-center">
             <h2 className="text-[clamp(2.8rem,6.5vw,5.5rem)] font-light leading-[1.08] tracking-[-0.02em] text-white/90">
-              <span className="animate-title-line inline-block">We Craft</span>
+              <span className="animate-title-line inline-block">We Build</span>
               <br />
-              <span className="animate-title-line-delayed inline-block">With Mastery</span>
+              <span className="animate-title-line-delayed inline-block">Real Shoes</span>
             </h2>
-            <div className="animate-title-divider mx-auto mt-8 h-px w-20 bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
+            <div className="animate-title-divider mx-auto mt-8 h-px w-20 bg-gradient-to-r from-transparent via-[#E63946]/40 to-transparent" />
           </div>
         </div>
 
@@ -260,7 +260,7 @@ export default function HorizontalScrollSection() {
           >
             <div className="mx-auto w-full max-w-[1280px]">
               {/* Card container */}
-              <div className="relative overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0d1110]/80 backdrop-blur-sm">
+              <div className="relative overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#2A0F0F]/80 backdrop-blur-sm">
                 <div className="flex min-h-[520px] max-[768px]:flex-col">
                   {/* Media side */}
                   <div className="relative flex-[1.2] overflow-hidden max-[768px]:min-h-[280px]">
@@ -273,7 +273,7 @@ export default function HorizontalScrollSection() {
                   <div className="flex flex-1 flex-col justify-center px-[clamp(28px,4vw,56px)] py-[clamp(32px,4vw,56px)] max-[768px]:py-8">
                     {/* Icon + Title */}
                     <div className="mb-5 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#C9A96E]/30 bg-[#C9A96E]/10 text-[#C9A96E]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E63946]/30 bg-[#E63946]/10 text-[#E63946]">
                         {card.icon}
                       </div>
                       <h2 className="text-[clamp(1.3rem,2.5vw,1.8rem)] font-medium leading-[1.2] tracking-[-0.01em] text-white/90">
@@ -290,7 +290,7 @@ export default function HorizontalScrollSection() {
                     <ul className="mt-6 space-y-3">
                       {card.bullets.map((bullet, j) => (
                         <li key={j} className="flex items-start gap-3">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#C9A96E]" />
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#E63946]" />
                           <span className="text-[clamp(0.82rem,1vw,0.9rem)] font-light leading-[1.6] text-white/60">
                             {bullet}
                           </span>

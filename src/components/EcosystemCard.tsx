@@ -42,7 +42,7 @@ export default function EcosystemCard({ icon, title }: EcosystemCardProps) {
             border: '1px solid rgba(255,255,255,0.12)',
           }}
         >
-          <div className="text-[#c9a96e]">{icon}</div>
+          <div className="text-[#E63946]">{icon}</div>
         </div>
 
         {/* Divider */}

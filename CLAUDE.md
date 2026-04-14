@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Luxury brand landing page built with React 19, TypeScript, Vite, and Tailwind CSS v4. The design is dark, cinematic, and atmospheric — inspired by RunwayML, ElevenLabs, and SpaceX.
+Nike shoe agency landing page built with React 19, TypeScript, Vite, and Tailwind CSS v4. The design is dark, cinematic, and athletic — deep maroon base with vibrant red and orange accents, inspired by Nike.com, RunwayML, and ElevenLabs.
 
 ## Commands
 
@@ -44,7 +44,7 @@ Keep both in sync when adding new tokens.
 - Satoshi font loaded via Fontshare CDN in `index.html`
 - Responsive design uses `clamp()` for fluid typography and spacing
 - Mobile breakpoints: 768px and 1100px
-- Use glass layers, subtle borders, and gold/teal accent gradients for depth
+- Use glass layers, subtle borders, and red/orange accent gradients for depth
 - Refer to `.impeccable.md` for the full design context including color tokens, typography scale, and design principles
 
 ### TypeScript

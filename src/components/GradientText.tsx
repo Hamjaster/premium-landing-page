@@ -6,7 +6,7 @@ interface GradientTextProps {
 
 export function GradientText({ children, className = '', as: Component = 'span' }: GradientTextProps) {
   return (
-    <Component className={`text-gradient-gold ${className}`}>
+    <Component className={`text-gradient-red ${className}`}>
       {children}
     </Component>
   );

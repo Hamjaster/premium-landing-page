@@ -64,21 +64,26 @@ export const colors = {
     secondary: 'var(--color-bg-secondary)',
     tertiary: 'var(--color-bg-tertiary)',
   },
-  gold: {
-    primary: 'var(--color-gold-primary)',
-    light: 'var(--color-gold-light)',
-    dark: 'var(--color-gold-dark)',
+  red: {
+    primary: 'var(--color-red-primary)',
+    light: 'var(--color-red-light)',
+    dark: 'var(--color-red-dark)',
   },
-  teal: {
-    primary: 'var(--color-teal-primary)',
-    light: 'var(--color-teal-light)',
-    dark: 'var(--color-teal-dark)',
+  orange: {
+    primary: 'var(--color-orange-primary)',
+    light: 'var(--color-orange-light)',
+    dark: 'var(--color-orange-dark)',
+  },
+  amber: {
+    primary: 'var(--color-amber-primary)',
+    light: 'var(--color-amber-light)',
+    dark: 'var(--color-amber-dark)',
   },
   text: {
     primary: 'var(--color-text-primary)',
     secondary: 'var(--color-text-secondary)',
     tertiary: 'var(--color-text-tertiary)',
-    gold: 'var(--color-text-gold)',
+    accent: 'var(--color-text-accent)',
   },
   border: {
     subtle: 'var(--color-border-subtle)',
@@ -107,8 +112,8 @@ export const spacing = {
 
 export const gradients = {
   hero: 'var(--gradient-hero)',
-  gold: 'var(--gradient-gold)',
-  teal: 'var(--gradient-teal)',
+  red: 'var(--gradient-red)',
+  orange: 'var(--gradient-orange)',
   glow: 'var(--gradient-glow)',
 } as const;
 

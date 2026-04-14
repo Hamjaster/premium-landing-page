@@ -21,61 +21,61 @@ const AnimatedGradientBackground = () => {
     const blobs = blobRefs.current.filter(Boolean) as HTMLDivElement[];
     if (blobs.length === 0) return;
 
-    // 6 phases for ultra-smooth, gradual transitions
+    // 6 phases for ultra-smooth, gradual transitions — red/orange palette
     const phases: BlobState[][] = [
-      // Phase 1: Gold/Teal blend (hero - initial)
+      // Phase 1: Red/Orange blend (hero - initial)
       [
-        { x: 20, y: 30, size: 55, opacity: 0.85, r: 99, g: 82, b: 43 },
-        { x: 78, y: 38, size: 48, opacity: 0.75, r: 139, g: 115, b: 64 },
-        { x: 50, y: 62, size: 58, opacity: 0.80, r: 8, g: 38, b: 31 },
-        { x: 12, y: 72, size: 42, opacity: 0.70, r: 13, g: 61, b: 49 },
-        { x: 65, y: 20, size: 35, opacity: 0.65, r: 196, g: 156, b: 74 },
-        { x: 40, y: 80, size: 30, opacity: 0.60, r: 5, g: 26, b: 21 },
+        { x: 20, y: 30, size: 55, opacity: 0.85, r: 230, g: 57, b: 70 },
+        { x: 78, y: 38, size: 48, opacity: 0.75, r: 255, g: 107, b: 53 },
+        { x: 50, y: 62, size: 58, opacity: 0.80, r: 184, g: 45, b: 56 },
+        { x: 12, y: 72, size: 42, opacity: 0.70, r: 255, g: 143, b: 94 },
+        { x: 65, y: 20, size: 35, opacity: 0.65, r: 255, g: 184, b: 0 },
+        { x: 40, y: 80, size: 30, opacity: 0.60, r: 204, g: 85, b: 41 },
       ],
-      // Phase 2: Gold fading, teal emerging
+      // Phase 2: Red fading, orange emerging
       [
-        { x: 25, y: 32, size: 58, opacity: 0.82, r: 80, g: 70, b: 40 },
-        { x: 74, y: 40, size: 50, opacity: 0.78, r: 100, g: 90, b: 55 },
-        { x: 48, y: 60, size: 60, opacity: 0.82, r: 8, g: 38, b: 31 },
-        { x: 15, y: 70, size: 44, opacity: 0.72, r: 10, g: 50, b: 42 },
-        { x: 60, y: 22, size: 38, opacity: 0.68, r: 160, g: 140, b: 80 },
-        { x: 45, y: 78, size: 32, opacity: 0.62, r: 6, g: 30, b: 25 },
+        { x: 25, y: 32, size: 58, opacity: 0.82, r: 200, g: 50, b: 60 },
+        { x: 74, y: 40, size: 50, opacity: 0.78, r: 230, g: 80, b: 50 },
+        { x: 48, y: 60, size: 60, opacity: 0.82, r: 184, g: 45, b: 56 },
+        { x: 15, y: 70, size: 44, opacity: 0.72, r: 240, g: 120, b: 70 },
+        { x: 60, y: 22, size: 38, opacity: 0.68, r: 255, g: 160, b: 20 },
+        { x: 45, y: 78, size: 32, opacity: 0.62, r: 204, g: 85, b: 41 },
       ],
-      // Phase 3: Transition midpoint - balanced green/gold
+      // Phase 3: Transition midpoint - balanced orange/red
       [
-        { x: 28, y: 28, size: 60, opacity: 0.88, r: 15, g: 45, b: 35 },
-        { x: 72, y: 42, size: 52, opacity: 0.82, r: 20, g: 55, b: 45 },
-        { x: 48, y: 65, size: 62, opacity: 0.80, r: 8, g: 38, b: 31 },
-        { x: 82, y: 68, size: 38, opacity: 0.68, r: 180, g: 155, b: 95 },
-        { x: 35, y: 18, size: 40, opacity: 0.70, r: 12, g: 42, b: 35 },
-        { x: 55, y: 78, size: 35, opacity: 0.62, r: 8, g: 35, b: 28 },
+        { x: 28, y: 28, size: 60, opacity: 0.88, r: 255, g: 107, b: 53 },
+        { x: 72, y: 42, size: 52, opacity: 0.82, r: 255, g: 143, b: 94 },
+        { x: 48, y: 65, size: 62, opacity: 0.80, r: 230, g: 57, b: 70 },
+        { x: 82, y: 68, size: 38, opacity: 0.68, r: 255, g: 184, b: 0 },
+        { x: 35, y: 18, size: 40, opacity: 0.70, r: 255, g: 107, b: 53 },
+        { x: 55, y: 78, size: 35, opacity: 0.62, r: 204, g: 85, b: 41 },
       ],
-      // Phase 4: Green dominant
+      // Phase 4: Orange dominant
       [
-        { x: 30, y: 26, size: 62, opacity: 0.90, r: 10, g: 40, b: 32 },
-        { x: 70, y: 44, size: 54, opacity: 0.84, r: 13, g: 55, b: 46 },
-        { x: 46, y: 66, size: 64, opacity: 0.82, r: 6, g: 30, b: 24 },
-        { x: 84, y: 66, size: 40, opacity: 0.65, r: 190, g: 165, b: 105 },
-        { x: 32, y: 16, size: 42, opacity: 0.72, r: 10, g: 45, b: 36 },
-        { x: 58, y: 80, size: 36, opacity: 0.60, r: 7, g: 28, b: 22 },
+        { x: 30, y: 26, size: 62, opacity: 0.90, r: 255, g: 107, b: 53 },
+        { x: 70, y: 44, size: 54, opacity: 0.84, r: 255, g: 143, b: 94 },
+        { x: 46, y: 66, size: 64, opacity: 0.82, r: 230, g: 57, b: 70 },
+        { x: 84, y: 66, size: 40, opacity: 0.65, r: 255, g: 184, b: 0 },
+        { x: 32, y: 16, size: 42, opacity: 0.72, r: 255, g: 107, b: 53 },
+        { x: 58, y: 80, size: 36, opacity: 0.60, r: 204, g: 85, b: 41 },
       ],
-      // Phase 5: Deep teal evolution
+      // Phase 5: Deep red evolution
       [
-        { x: 38, y: 22, size: 65, opacity: 0.90, r: 6, g: 30, b: 24 },
-        { x: 62, y: 48, size: 55, opacity: 0.85, r: 8, g: 38, b: 31 },
-        { x: 18, y: 75, size: 45, opacity: 0.75, r: 13, g: 61, b: 49 },
-        { x: 80, y: 28, size: 40, opacity: 0.70, r: 10, g: 47, b: 38 },
-        { x: 45, y: 55, size: 50, opacity: 0.65, r: 8, g: 38, b: 31 },
-        { x: 70, y: 72, size: 32, opacity: 0.58, r: 5, g: 26, b: 21 },
+        { x: 38, y: 22, size: 65, opacity: 0.90, r: 184, g: 45, b: 56 },
+        { x: 62, y: 48, size: 55, opacity: 0.85, r: 230, g: 57, b: 70 },
+        { x: 18, y: 75, size: 45, opacity: 0.75, r: 255, g: 143, b: 94 },
+        { x: 80, y: 28, size: 40, opacity: 0.70, r: 204, g: 85, b: 41 },
+        { x: 45, y: 55, size: 50, opacity: 0.65, r: 230, g: 57, b: 70 },
+        { x: 70, y: 72, size: 32, opacity: 0.58, r: 184, g: 45, b: 56 },
       ],
-      // Phase 6: Atmospheric shift - rich teal with subtle gold return
+      // Phase 6: Atmospheric shift - rich red with subtle amber return
       [
-        { x: 32, y: 38, size: 68, opacity: 0.90, r: 13, g: 61, b: 49 },
-        { x: 68, y: 28, size: 50, opacity: 0.80, r: 8, g: 38, b: 31 },
-        { x: 50, y: 70, size: 55, opacity: 0.75, r: 5, g: 26, b: 21 },
-        { x: 15, y: 48, size: 38, opacity: 0.65, r: 99, g: 82, b: 43 },
-        { x: 75, y: 55, size: 42, opacity: 0.68, r: 10, g: 47, b: 38 },
-        { x: 42, y: 15, size: 35, opacity: 0.60, r: 13, g: 61, b: 49 },
+        { x: 32, y: 38, size: 68, opacity: 0.90, r: 255, g: 143, b: 94 },
+        { x: 68, y: 28, size: 50, opacity: 0.80, r: 230, g: 57, b: 70 },
+        { x: 50, y: 70, size: 55, opacity: 0.75, r: 184, g: 45, b: 56 },
+        { x: 15, y: 48, size: 38, opacity: 0.65, r: 230, g: 57, b: 70 },
+        { x: 75, y: 55, size: 42, opacity: 0.68, r: 255, g: 107, b: 53 },
+        { x: 42, y: 15, size: 35, opacity: 0.60, r: 255, g: 143, b: 94 },
       ],
     ];
 
@@ -147,18 +147,18 @@ const AnimatedGradientBackground = () => {
 
   // Initial blob states for SSR/first render
   const initialBlobs: BlobState[] = [
-    { x: 20, y: 30, size: 55, opacity: 0.85, r: 99, g: 82, b: 43 },
-    { x: 78, y: 38, size: 48, opacity: 0.75, r: 139, g: 115, b: 64 },
-    { x: 50, y: 62, size: 58, opacity: 0.80, r: 8, g: 38, b: 31 },
-    { x: 12, y: 72, size: 42, opacity: 0.70, r: 13, g: 61, b: 49 },
-    { x: 65, y: 20, size: 35, opacity: 0.65, r: 196, g: 156, b: 74 },
-    { x: 40, y: 80, size: 30, opacity: 0.60, r: 5, g: 26, b: 21 },
+    { x: 20, y: 30, size: 55, opacity: 0.85, r: 230, g: 57, b: 70 },
+    { x: 78, y: 38, size: 48, opacity: 0.75, r: 255, g: 107, b: 53 },
+    { x: 50, y: 62, size: 58, opacity: 0.80, r: 184, g: 45, b: 56 },
+    { x: 12, y: 72, size: 42, opacity: 0.70, r: 255, g: 143, b: 94 },
+    { x: 65, y: 20, size: 35, opacity: 0.65, r: 255, g: 184, b: 0 },
+    { x: 40, y: 80, size: 30, opacity: 0.60, r: 204, g: 85, b: 41 },
   ];
 
   return (
     <>
       {/* Base dark background */}
-      <div aria-hidden="true" className="fixed inset-0 -z-30 bg-[#050505]" />
+      <div aria-hidden="true" className="fixed inset-0 -z-30 bg-[#1A0A0A]" />
 
       {/* Individual gradient blobs */}
       {initialBlobs.map((blob, i) => (

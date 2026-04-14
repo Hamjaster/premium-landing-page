@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MessageCircle, Palette, Users, Gem, Lightbulb } from 'lucide-react';
-import watchHeroImage from './assets/ring.avif';
+import watchHeroImage from './assets/shoe-group.png';
 import AnimatedGradientBackground from './components/AnimatedGradientBackground';
 import EcosystemCard from './components/EcosystemCard';
 import HorizontalScrollSection from './components/HorizontalScrollSection';
@@ -13,44 +13,55 @@ import { RingShowcaseSection, SiteFooter } from './components';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const imageRef = useRef<HTMLDivElement>(null);
-  const aboutTextRef = useRef<HTMLDivElement>(null);
+  const shoeWrapperRef = useRef<HTMLDivElement>(null);
+  const shoeGlowRef = useRef<HTMLDivElement>(null);
   const ecosystemSectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Shoe float animation: hero right → ecosystem center
   useGSAP(() => {
-    if (!imageRef.current || !aboutTextRef.current) return;
+    if (!shoeWrapperRef.current || !ecosystemSectionRef.current) return;
 
-    // Image scales up slowly over a longer scroll distance
-    gsap.to(imageRef.current, {
-      scale: 1.18,
+    gsap.to(shoeWrapperRef.current, {
+      left: '50%',
+      top: '50%',
+      xPercent: -50,
+      yPercent: -50,
+      scale: 0.72,
+      width: '55vw',
+      maxWidth: '700px',
+      ease: 'none',
       scrollTrigger: {
-        trigger: document.documentElement,
-        start: 'top top',
-        end: '+=300vh',
-        scrub: 2,
+        trigger: ecosystemSectionRef.current,
+        start: 'top bottom',
+        end: 'top 10%',
+        scrub: 1.5,
       },
     });
 
-    // About text clip reveal from left to right
-    gsap.fromTo(
-      aboutTextRef.current,
-      { clipPath: 'inset(0 100% 0 0)' },
-      {
-        clipPath: 'inset(0 0% 0 0)',
+    // Glow follows the shoe
+    if (shoeGlowRef.current) {
+      gsap.to(shoeGlowRef.current, {
+        left: '50%',
+        top: '50%',
+        xPercent: -50,
+        yPercent: -50,
+        scale: 0.72,
+        width: '55vw',
+        ease: 'none',
         scrollTrigger: {
-          trigger: aboutTextRef.current,
-          start: 'top 80%',
-          end: 'bottom 40%',
-          scrub: 2,
+          trigger: ecosystemSectionRef.current,
+          start: 'top bottom',
+          end: 'top 10%',
+          scrub: 1.5,
         },
-      },
-    );
+      });
+    }
   });
 
   // Ecosystem section animations
   useGSAP(() => {
-    if (!ecosystemSectionRef.current || !imageRef.current) return;
+    if (!ecosystemSectionRef.current) return;
 
     const cards = cardRefs.current.filter(Boolean);
 
@@ -83,23 +94,6 @@ function App() {
         },
       );
     });
-
-    // Fixed bottom image shrinks and floats to center when ecosystem section is reached
-    gsap.to(imageRef.current, {
-      width: '840px',
-      bottom: '25%',
-      xPercent: -50,
-      yPercent: -7,
-      scale: 0.99,
-      transformOrigin: '50% 50%',
-      overwrite: true,
-      scrollTrigger: {
-        trigger: ecosystemSectionRef.current,
-        start: 'top 65%',
-        end: 'top 20%',
-        scrub: 0.5,
-      },
-    });
   });
 
   return (
@@ -109,105 +103,129 @@ function App() {
 
       {/* Global fixed header */}
       <header className="fixed top-0 left-0 right-0 z-50 mx-auto flex items-center justify-between w-[min(1380px,calc(100%-64px))] gap-5 pt-[18px] max-[1100px]:w-[calc(100%-36px)] max-[1100px]:grid-cols-[auto_auto] max-[1100px]:gap-y-4">
-        <div className="flex items-center gap-[10px] justify-self-start text-[#e1d5b6] max-[1100px]:order-1">
-          <div className="flex flex-col gap-[2px] text-[26px] font-medium leading-[0.84] tracking-[0.04em] max-[768px]:text-[22px]">
-            <span>ERTOA</span>
-        
-          </div>
-          <div className="relative h-[44px] w-[52px] opacity-95">
-            <span className="absolute inset-[3px] rounded-[28px] border-2 border-[#d5c9ab]" />
-            <span className="absolute right-4 top-2 h-[27px] w-[20px] rotate-12 rounded-[20px] border-2 border-[#d5c9ab]" />
-          </div>
+        {/* Nike-style logo */}
+        <div className="flex items-center gap-3 justify-self-start max-[1100px]:order-1">
+          <svg viewBox="0 0 69 32" className="h-8 w-auto fill-white" aria-label="Nike">
+            <path d="M68.56 4.05c-0.28 0.14-1.44 0.72-3.48 1.72-3.48 1.72-8.28 4.08-12.72 6.28-4.44 2.2-8.52 4.24-11.28 5.64-1.38 0.7-2.4 1.22-2.96 1.5-0.56 0.28-0.84 0.42-0.84 0.42s-0.28-0.14-0.84-0.42c-0.56-0.28-1.58-0.8-2.96-1.5-2.76-1.4-6.84-3.44-11.28-5.64-4.44-2.2-9.24-4.56-12.72-6.28-2.04-1-3.2-1.58-3.48-1.72C1.44 3.33 0.28 2.75 0 2.61 0 2.61 0.28 2.75 1.44 3.33c1.16 0.58 3.48 1.72 6.96 3.44 3.48 1.72 8.28 4.08 12.72 6.28 4.44 2.2 8.52 4.24 11.28 5.64 1.38 0.7 2.4 1.22 2.96 1.5 0.56 0.28 0.84 0.42 0.84 0.42s0.28-0.14 0.84-0.42c0.56-0.28 1.58-0.8 2.96-1.5 2.76-1.4 6.84-3.44 11.28-5.64 4.44-2.2 9.24-4.56 12.72-6.28 3.48-1.72 5.8-2.86 6.96-3.44C68.72 2.75 69 2.61 69 2.61c0 0-0.28 0.14-0.44 0.22z" />
+          </svg>
         </div>
 
         <nav
           aria-label="Primary"
           className="flex items-center gap-[clamp(22px,2.3vw,48px)] max-[1100px]:static max-[1100px]:order-3 max-[1100px]:col-span-2 max-[1100px]:translate-x-0 max-[1100px]:justify-center max-[1100px]:gap-x-[22px] max-[1100px]:gap-y-4 max-[1100px]:flex-wrap"
         >
-          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">HOME</a>
-          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">ABOUT</a>
-          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">WHY US</a>
-          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">SERVICES</a>
-          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#f1e4c5] max-[768px]:text-[12px]" href="#">CONTACT US</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#FF8F8F] max-[768px]:text-[12px]" href="#">New Releases</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#FF8F8F] max-[768px]:text-[12px]" href="#">Men</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#FF8F8F] max-[768px]:text-[12px]" href="#">Women</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#FF8F8F] max-[768px]:text-[12px]" href="#">Sale</a>
+          <a className="text-[13px] font-light text-white/86 no-underline transition-colors duration-200 hover:text-[#FF8F8F] max-[768px]:text-[12px]" href="#">Collaboration</a>
         </nav>
 
         <div
           role="group"
-          aria-label="Language switch"
-          className="inline-flex justify-self-end items-center gap-1.5 rounded-full border border-white/15 bg-white/7 p-1.5 backdrop-blur-[10px] max-[1100px]:order-2"
+          aria-label="Header actions"
+          className="inline-flex justify-self-end items-center gap-3 max-[1100px]:order-2"
         >
-          <button
-            type="button"
-            className="h-[34px] w-[34px] rounded-full border border-white/16 bg-black/40 text-[12px] font-bold text-white/90"
-          >EN</button>
-          <button
-            type="button"
-            className="h-[34px] w-[34px] rounded-full bg-transparent text-[12px] font-bold text-white/90"
-          >AR</button>
+          <button type="button" className="text-white/70 hover:text-white transition-colors" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button type="button" className="text-white/70 hover:text-white transition-colors" aria-label="Favorites">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <button type="button" className="text-white/70 hover:text-white transition-colors" aria-label="Cart">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          </button>
         </div>
       </header>
 
       {/* ===== HERO SECTION ===== */}
-      <section aria-label="Hero" className="relative h-screen">
-        <div className="pt-[80px]">
-          <div className="h-[120px] max-[1100px]:h-[100px] max-[768px]:h-[23vh]" />
+      <section aria-label="Hero" className="relative min-h-screen flex items-center">
+        <div className="relative z-20 mx-auto w-[min(1380px,calc(100%-64px))] grid grid-cols-2 items-center gap-8 pt-[80px] max-[1100px]:w-[calc(100%-36px)] max-[768px]:grid-cols-1 max-[768px]:gap-12">
 
-          <div className="relative z-20 mx-auto w-[min(1000px,calc(100%-32px))] text-center text-[#dfd1b3]">
-            <h1 className="flex flex-col gap-[clamp(4px,1vw,18px)] text-[clamp(2.7rem,6.2vw,5rem)] font-light leading-[1.02] tracking-[-0.02em] max-[768px]:leading-[1.07]">
-              <span>Where Emotion</span>
-              <span>
-                Becomes{' '}
-                <em className="not-italic font-normal text-[#eadfc0] [text-shadow:0_0_11px_rgba(234,223,192,0.85),0_0_28px_rgba(234,223,192,0.35),0_0_54px_rgba(234,223,192,0.28)]">
-                  Tangible
-                </em>
-              </span>
+          {/* Left: Text content */}
+          <div className="flex flex-col gap-6 max-[768px]:text-center max-[768px]:items-center">
+            <p className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-[#FF8F8F]/70">
+              Nike Mercurial
+            </p>
+
+            <h1 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.03em]">
+              Vapor XI FG
             </h1>
+
+            <p className="max-w-md text-[clamp(0.9rem,1.2vw,1.05rem)] font-light leading-[1.7] text-white/55 max-[768px]:max-w-full">
+              Create a difference on the pitch with an updated design that looks as fast as you play. The hand upper has textured patterns that are engineered to help you place your shots with pinpoint accuracy.
+            </p>
+
+            <div className="flex items-center gap-4 max-[768px]:justify-center">
+              <span className="text-[1.1rem] font-light text-white/40 line-through">€210</span>
+              <span className="text-[1.8rem] font-bold text-white">€170</span>
+            </div>
 
             <button
               type="button"
-              className="cursor-pointer mt-7 px-12 py-4 rounded-full border border-white/5 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.12),rgba(255,255,255,0.035))] text-[16px] font-medium leading-none text-[#f2f2f2] shadow-[0_4px_20px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.24)] backdrop-blur-[4px] transition-transform duration-200 hover:-translate-y-px hover:border-white/25 max-[768px]:h-[46px] max-[768px]:min-w-[148px] max-[768px]:text-[1.08rem]"
+              className="self-start rounded-full bg-[#E63946] px-8 py-3.5 text-[0.95rem] font-semibold text-white shadow-[0_4px_24px_rgba(230,57,70,0.4)] transition-all duration-200 hover:bg-[#FF5C6A] hover:shadow-[0_6px_32px_rgba(230,57,70,0.55)] hover:-translate-y-0.5 max-[768px]:self-center"
             >
-              Get Started
+              Get these product
             </button>
           </div>
 
-          <div className="h-[50vh] w-full" />
-        </div>
-      </section>
-
-      {/* ===== ABOUT SECTION ===== */}
-      <section aria-label="About" className="relative h-screen">
-        <div className="pt-[80px]">
-          <div className="h-[18vh]" />
-
-          <div
-            ref={aboutTextRef}
-            className="relative z-[5] mx-auto w-[min(900px,calc(100%-32px))] text-center text-[#c8dcc8]"
-          >
-            <p className="text-[clamp(1.5rem,3.2vw,2.4rem)] font-light leading-[1.5] tracking-[0.01em]">
-              We are Ertqa — Saudi Arabia's leading ecosystem uniting design, craftsmanship, and manufacturing.
-            </p>
-          </div>
-
-          <div className="h-[60vh] w-full" />
-        </div>
-      </section>
-      
-      {/* Fixed bottom image */}                                                                                                                                                                          
-           <div                                                                                         
-             ref={imageRef}                                                                             
-
-            aria-hidden="true"                                                                         
-            className="pointer-events-none fixed left-1/2 -bottom-1/2 z-10 w-[98vw] -translate-x-1/2 ml-3.5 max-[768px]:w-[95vw]"                                                 
-            >                                                                                            
-             <img                                                                                       
-              src={watchHeroImage}                                                                     
-                alt=""                                                                                   
-               className="h-auto w-full object-contain"                                                 
+          {/* Right: Placeholder to reserve space for the floating shoe */}
+          <div className="relative flex items-center justify-center max-[768px]:order-first">
+            {/* Placeholder — same size as the shoe, invisible */}
+            <div className="w-full max-w-[920px] opacity-0" aria-hidden="true">
+              <img
+                src={watchHeroImage}
+                alt=""
+                className="h-auto w-full object-contain"
               />
-            </div>                                                                                       
-                                                                                                         
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* ===== FLOATING SHOE (fixed, animates from hero right to ecosystem center) ===== */}
+      <div
+        ref={shoeWrapperRef}
+        className="fixed z-30 pointer-events-none"
+        style={{
+          right: '5%',
+          top: '10%',
+          transform: 'translateY(-50%)',
+          width: '45vw',
+          maxWidth: '920px',
+        }}
+      >
+        {/* Circular background glow */}
+        <div
+          ref={shoeGlowRef}
+          className="absolute aspect-square w-[80%] rounded-full"
+          style={{
+            left: '10%',
+            top: '10%',
+            background: 'radial-gradient(circle, rgba(230,57,70,0.35) 0%, rgba(230,57,70,0.12) 40%, transparent 70%)',
+            filter: 'blur(40px)',
+          }}
+        />
+        {/* Secondary orange glow */}
+        <div
+          className="absolute aspect-square w-[60%] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(255,107,53,0.2) 0%, transparent 60%)',
+            filter: 'blur(30px)',
+            top: '10%',
+            right: '5%',
+          }}
+        />
+
+        {/* Shoe image */}
+        <div className="relative z-10">
+          <img
+            src={watchHeroImage}
+            alt="Nike Vapor XI FG football boot"
+            className="h-auto w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+          />
+        </div>
+      </div>
 
       {/* ===== ECOSYSTEM SECTION ===== */}
       <section ref={ecosystemSectionRef} aria-label="Ecosystem" className="relative h-screen">
@@ -267,18 +285,7 @@ function App() {
       <RingShowcaseSection />
       <SiteFooter />
 
-      {/* WhatsApp button */}
-      <button
-        type="button"
-        className="fixed right-[clamp(18px,2.5vw,36px)] bottom-[clamp(22px,3.2vw,36px)] z-20 grid h-[72px] w-[72px] place-items-center rounded-full border border-white/30 bg-white/10 text-white shadow-[0_8px_28px_rgba(0,0,0,0.45)] backdrop-blur-[10px] transition-transform duration-200 hover:scale-[1.02] max-[768px]:h-[62px] max-[768px]:w-[62px]"
-        aria-label="Open WhatsApp"
-      >
-        <MessageCircle
-          aria-hidden="true"
-          className="h-8 w-8 max-[768px]:h-7 max-[768px]:w-7"
-          strokeWidth={2.2}
-        />
-      </button>                                                                                         
+
 
     </main>
   );
