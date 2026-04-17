@@ -88,8 +88,8 @@ function App() {
     gsap.to(imageRef.current, {
       width: '840px',
       bottom: '25%',
-      xPercent: -50,
-      yPercent: -7,
+      xPercent: 0,
+      // yPercent: -7,
       scale: 0.99,
       transformOrigin: '50% 50%',
       overwrite: true,
