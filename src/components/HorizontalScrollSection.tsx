@@ -1,8 +1,9 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import video from "../assets/video.mp4"
+import { Leaf, Droplets, Shield, Globe } from 'lucide-react';
+
 gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollCard {
@@ -10,200 +11,149 @@ interface ScrollCard {
   title: string;
   description: string;
   bullets: string[];
-  media: {
-    type: 'video' | 'image';
-    src: string;
-    poster?: string;
-  };
+  imageColor: string;
 }
 
 const cards: ScrollCard[] = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    ),
-    title: 'Design & Innovation',
-    description: 'We design gifts, awards, and bespoke products that reflect each client\'s identity and success. From concept to creation, we turn ideas into designs that communicate the message and add a touch of distinction to every experience.',
+    icon: <Leaf size={28} strokeWidth={1.5} />,
+    title: 'Nature-Inspired Formulas',
+    description: 'Every COSME product begins with nature\'s finest ingredients. We source organic botanicals, plant extracts, and mineral-rich compounds from trusted farms around the world.',
     bullets: [
-      'Designing corporate and seasonal gifts.',
-      'Developing gifts for national and cultural occasions.',
-      'Designing awards and recognition items.',
-      'Creating bespoke VIP gifts.',
+      '100% organic and sustainably sourced ingredients.',
+      'Cold-pressed extraction to preserve potency.',
+      'Seasonal botanical blends for optimal freshness.',
+      'Zero synthetic fillers or harsh chemicals.',
     ],
-    media: {
-      type: 'video',
-      src: video,
-      poster: '',
-    },
+    imageColor: '#E8F0E6',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-    ),
-    title: 'Flexible & Precise Manufacturing',
-    description: 'We turn creative ideas into quality products by blending advanced technology and handcrafted artistry. Our integrated processes and flexible production lines ensure precision, perfect 3D printing, and more.',
+    icon: <Droplets size={28} strokeWidth={1.5} />,
+    title: 'Science-Backed Results',
+    description: 'Nature meets innovation. Our dermatologist-tested formulas combine ancient botanical wisdom with modern skincare science for visible, lasting results.',
     bullets: [
-      'Flexible manufacturing integration from design to delivery.',
-      'Flexible, multi-material manufacturing techniques.',
-      'Large-scale gifting and printing operations.',
-      'Managing small to large production runs.',
+      'Clinically tested for efficacy and safety.',
+      'pH-balanced for all skin types.',
+      'Dermatologist recommended and approved.',
+      'Visible results in as little as 14 days.',
     ],
-    media: {
-      type: 'video',
-      src: video,
-      poster: '',
-    },
+    imageColor: '#F0EDE6',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      </svg>
-    ),
-    title: 'Quality & Craftsmanship',
-    description: 'Every product passes through rigorous quality checks, combining traditional Saudi craftsmanship with modern precision engineering. We ensure each piece meets the highest standards of excellence.',
+    icon: <Shield size={28} strokeWidth={1.5} />,
+    title: 'Clean & Conscious Beauty',
+    description: 'We believe beauty should never come at a cost to your health or the planet. Every product is cruelty-free, vegan, and packaged in recyclable materials.',
     bullets: [
-      'Multi-stage quality inspection processes.',
-      'Premium material sourcing and verification.',
-      'Traditional craftsmanship meets modern precision.',
-      'Certified quality management standards.',
+      'Cruelty-free and 100% vegan formulas.',
+      'Recyclable and biodegradable packaging.',
+      'Carbon-neutral manufacturing process.',
+      'Transparent ingredient sourcing.',
     ],
-    media: {
-      type: 'video',
-      src: video,
-      poster: '',
-    },
+    imageColor: '#E6EDE8',
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20" />
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-      </svg>
-    ),
-    title: 'Global Reach, Local Roots',
-    description: 'Rooted in Saudi heritage, we deliver world-class products to clients across the region and beyond. Our deep understanding of local culture combined with international standards sets us apart.',
+    icon: <Globe size={28} strokeWidth={1.5} />,
+    title: 'Trusted Worldwide',
+    description: 'From our roots in natural wellness to shelves across the globe, COSME has become a trusted name in clean skincare for over 350,000 clients worldwide.',
     bullets: [
-      'Serving clients across the GCC and beyond.',
-      'Deep understanding of Saudi cultural identity.',
-      'International quality with local authenticity.',
-      'Customized solutions for every market.',
+      'Available in 40+ countries worldwide.',
+      'Award-winning product formulations.',
+      'Trusted by dermatologists and estheticians.',
+      'Community of 350,000+ happy customers.',
     ],
-    media: {
-      type: 'video',
-      src: video,
-      poster: '',
-    },
+    imageColor: '#EDE8E0',
   },
 ];
 
-function CardMedia({ media }: { media: ScrollCard['media'] }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isInView, setIsInView] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.3 },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isInView) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
-  }, [isInView]);
-
-  if (media.type === 'video') {
-    return (
-      <div ref={containerRef} className="relative h-full w-full">
-        {isInView && media.src ? (
-          <video
-            ref={videoRef}
-            src={media.src}
-            poster={media.poster}
-            className="h-full w-full object-cover"
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#0d1a14] via-[#0a1210] to-[#080e0c]" />
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <img
-      src={media.src}
-      alt=""
-      className="h-full w-full object-cover"
-      loading="lazy"
-    />
-  );
-}
-
 export default function HorizontalScrollSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useGSAP(() => {
-    if (!sectionRef.current || !trackRef.current) return;
+    if (!sectionRef.current) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const track = trackRef.current;
-    const totalScrollWidth = track.scrollWidth - window.innerWidth;
+    const chapterCards = cardRefs.current.filter(
+      (card): card is HTMLDivElement => Boolean(card),
+    );
+    if (!chapterCards.length) return;
 
-    gsap.to(track, {
-      x: -totalScrollWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: () => `+=${totalScrollWidth}`,
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true,
-      },
+    chapterCards.forEach((card, index) => {
+      gsap.fromTo(
+        card,
+        {
+          autoAlpha: index === 0 ? 1 : 0.46,
+          y: index === 0 ? 0 : 56,
+          scale: index === 0 ? 1 : 0.965,
+        },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 82%',
+            end: 'top 42%',
+            scrub: 0.9,
+            invalidateOnRefresh: true,
+            onEnter: () => setActiveIndex(index),
+            onEnterBack: () => setActiveIndex(index),
+          },
+        },
+      );
+
+      if (index < chapterCards.length - 1) {
+        gsap.to(card, {
+          autoAlpha: 0.42,
+          y: -26,
+          scale: 0.968,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: chapterCards[index + 1],
+            start: 'top 80%',
+            end: 'top 42%',
+            scrub: 0.9,
+            invalidateOnRefresh: true,
+          },
+        });
+      }
     });
-  });
+
+    if (stageRef.current) {
+      gsap.fromTo(
+        stageRef.current,
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+      );
+
+      gsap.to(stageRef.current, {
+        y: -38,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.1,
+          invalidateOnRefresh: true,
+        },
+      });
+    }
+  }, { scope: sectionRef });
 
   return (
     <section
       ref={sectionRef}
-      aria-label="Our Craft"
-      className="relative z-30 overflow-hidden"
+      aria-label="Our Philosophy"
+      className="relative z-30 overflow-clip bg-[#F5EDE0]"
     >
-      {/* Glassmorphism background */}
-      <div className="absolute inset-0 bg-[#081a14]" />
       <div
         className="absolute inset-0 opacity-40"
         style={{
           background:
-            'radial-gradient(ellipse 80% 60% at 30% 40%, rgba(8, 38, 31, 0.8) 0%, transparent 70%)',
+            'radial-gradient(ellipse 80% 60% at 30% 40%, rgba(92, 122, 98, 0.12) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
       />
@@ -211,98 +161,104 @@ export default function HorizontalScrollSection() {
         className="absolute inset-0 opacity-25"
         style={{
           background:
-            'radial-gradient(ellipse 60% 50% at 70% 60%, rgba(99, 82, 43, 0.3) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 70% 60%, rgba(232, 213, 183, 0.4) 0%, transparent 70%)',
           filter: 'blur(100px)',
         }}
       />
-      <div
-        className="absolute inset-0 opacity-15"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 50%, rgba(13, 61, 49, 0.5) 0%, transparent 60%)',
-          filter: 'blur(60px)',
-        }}
-      />
 
-      {/* Subtle glass overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backdropFilter: 'blur(1px)',
-          WebkitBackdropFilter: 'blur(1px)',
-        }}
-      />
+      <div className="relative z-10 mx-auto w-[min(1380px,calc(100%-64px))] py-[clamp(96px,13vw,180px)] max-[1100px]:w-[calc(100%-36px)]">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+          <aside className="lg:sticky lg:top-[16vh] lg:h-fit">
+            <div
+              ref={stageRef}
+              className="rounded-[28px] border border-[#5C7A62]/12 bg-white/68 p-[clamp(28px,3.2vw,46px)] backdrop-blur-sm"
+            >
+              <p className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-[#2D2D2D]/36">
+                Rooted In Nature
+              </p>
+              <h2 className="mt-5 text-[clamp(2.05rem,4.3vw,3.7rem)] font-light leading-[1.08] tracking-[-0.03em] text-[#2D2D2D]/92">
+                Our Philosophy In Four Chapters
+              </h2>
+              <p className="mt-5 max-w-md text-[clamp(0.9rem,1.15vw,1rem)] font-light leading-[1.75] text-[#6B6B6B]">
+                Scroll through each chapter to explore how COSME combines nature,
+                science, and trust into a single ritual.
+              </p>
 
-      {/* Horizontal track */}
-      <div
-        ref={trackRef}
-        className="relative z-10 flex h-screen w-max items-center"
-        style={{ willChange: 'transform' }}
-      >
-        {/* Title card */}
-        <div className="flex h-screen w-screen shrink-0 items-center justify-center">
-          <div className="animate-title-fade text-center">
-            <h2 className="text-[clamp(2.8rem,6.5vw,5.5rem)] font-light leading-[1.08] tracking-[-0.02em] text-white/90">
-              <span className="animate-title-line inline-block">We Craft</span>
-              <br />
-              <span className="animate-title-line-delayed inline-block">With Mastery</span>
-            </h2>
-            <div className="animate-title-divider mx-auto mt-8 h-px w-20 bg-gradient-to-r from-transparent via-[#C9A96E]/40 to-transparent" />
-          </div>
-        </div>
-
-        {/* Content cards */}
-        {cards.map((card, i) => (
-          <div
-            key={i}
-            ref={(el) => { cardRefs.current[i] = el; }}
-            className="flex h-screen w-screen shrink-0 items-center justify-center px-[clamp(20px,4vw,60px)]"
-          >
-            <div className="mx-auto w-full max-w-[1280px]">
-              {/* Card container */}
-              <div className="relative overflow-hidden rounded-[24px] border border-white/[0.08] bg-[#0d1110]/80 backdrop-blur-sm">
-                <div className="flex min-h-[520px] max-[768px]:flex-col">
-                  {/* Media side */}
-                  <div className="relative flex-[1.2] overflow-hidden max-[768px]:min-h-[280px]">
-                    <div className="absolute inset-3 overflow-hidden rounded-[18px]">
-                      <CardMedia media={card.media} />
-                    </div>
+              <div className="mt-8 space-y-3">
+                {cards.map((card, index) => (
+                  <div key={card.title} className="flex items-center gap-3">
+                    <span
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        activeIndex === index
+                          ? 'w-11 bg-[#5C7A62]/75'
+                          : 'w-6 bg-[#5C7A62]/22'
+                      }`}
+                    />
+                    <span className="text-[0.78rem] font-light uppercase tracking-[0.14em] text-[#2D2D2D]/46">
+                      Chapter {index + 1}
+                    </span>
                   </div>
+                ))}
+              </div>
 
-                  {/* Content side */}
-                  <div className="flex flex-1 flex-col justify-center px-[clamp(28px,4vw,56px)] py-[clamp(32px,4vw,56px)] max-[768px]:py-8">
-                    {/* Icon + Title */}
-                    <div className="mb-5 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#C9A96E]/30 bg-[#C9A96E]/10 text-[#C9A96E]">
-                        {card.icon}
-                      </div>
-                      <h2 className="text-[clamp(1.3rem,2.5vw,1.8rem)] font-medium leading-[1.2] tracking-[-0.01em] text-white/90">
-                        {card.title}
-                      </h2>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-[clamp(0.85rem,1.1vw,0.95rem)] font-light leading-[1.75] text-white/50">
-                      {card.description}
-                    </p>
-
-                    {/* Bullets */}
-                    <ul className="mt-6 space-y-3">
-                      {card.bullets.map((bullet, j) => (
-                        <li key={j} className="flex items-start gap-3">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#C9A96E]" />
-                          <span className="text-[clamp(0.82rem,1vw,0.9rem)] font-light leading-[1.6] text-white/60">
-                            {bullet}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+              <div className="mt-8 rounded-[20px] border border-[#5C7A62]/10 bg-[#FDF8F0]/85 px-5 py-4">
+                <p className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#2D2D2D]/36">
+                  Current Focus
+                </p>
+                <p className="mt-2 text-[0.95rem] font-medium leading-[1.45] text-[#2D2D2D]/88">
+                  {cards[activeIndex]?.title}
+                </p>
               </div>
             </div>
+          </aside>
+
+          <div className="space-y-[clamp(24px,3vw,44px)] pb-[clamp(24px,5vh,60px)] lg:pt-[16vh]">
+            {cards.map((card, i) => (
+              <article
+                key={card.title}
+                ref={(el: HTMLDivElement | null) => {
+                  cardRefs.current[i] = el;
+                }}
+                className="relative overflow-hidden rounded-[26px] border border-[#5C7A62]/10 bg-white/78 p-[clamp(24px,3vw,42px)] shadow-[0_12px_32px_rgba(45,45,45,0.05)] backdrop-blur-sm"
+              >
+                <div
+                  className="absolute inset-0 opacity-65"
+                  style={{
+                    background: `linear-gradient(140deg, ${card.imageColor} 0%, rgba(255,255,255,0.72) 58%)`,
+                  }}
+                />
+                <div className="relative z-10">
+                  <div className="mb-6 flex items-center gap-3">
+                    <div className="grid h-11 w-11 place-items-center rounded-full border border-[#5C7A62]/18 bg-[#5C7A62]/10 text-[#5C7A62]">
+                      {card.icon}
+                    </div>
+                    <span className="text-[0.74rem] font-medium uppercase tracking-[0.22em] text-[#2D2D2D]/45">
+                      Chapter {i + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="text-[clamp(1.35rem,2.2vw,2rem)] font-medium leading-[1.2] tracking-[-0.015em] text-[#2D2D2D]/92">
+                    {card.title}
+                  </h3>
+                  <p className="mt-4 max-w-3xl text-[clamp(0.9rem,1.05vw,0.98rem)] font-light leading-[1.75] text-[#6B6B6B]">
+                    {card.description}
+                  </p>
+
+                  <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+                    {card.bullets.map((bullet, j) => (
+                      <li key={j} className="flex items-start gap-3">
+                        <span className="mt-[0.6rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[#5C7A62]" />
+                        <span className="text-[0.86rem] font-light leading-[1.7] text-[#6B6B6B]">
+                          {bullet}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </section>
   );

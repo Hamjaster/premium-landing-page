@@ -64,21 +64,21 @@ export const colors = {
     secondary: 'var(--color-bg-secondary)',
     tertiary: 'var(--color-bg-tertiary)',
   },
-  gold: {
-    primary: 'var(--color-gold-primary)',
-    light: 'var(--color-gold-light)',
-    dark: 'var(--color-gold-dark)',
+  sage: {
+    primary: 'var(--color-sage-primary)',
+    light: 'var(--color-sage-light)',
+    dark: 'var(--color-sage-dark)',
   },
-  teal: {
-    primary: 'var(--color-teal-primary)',
-    light: 'var(--color-teal-light)',
-    dark: 'var(--color-teal-dark)',
+  cream: {
+    accent: 'var(--color-cream-accent)',
+    light: 'var(--color-cream-light)',
+    dark: 'var(--color-cream-dark)',
   },
   text: {
     primary: 'var(--color-text-primary)',
     secondary: 'var(--color-text-secondary)',
     tertiary: 'var(--color-text-tertiary)',
-    gold: 'var(--color-text-gold)',
+    sage: 'var(--color-text-sage)',
   },
   border: {
     subtle: 'var(--color-border-subtle)',
@@ -107,8 +107,8 @@ export const spacing = {
 
 export const gradients = {
   hero: 'var(--gradient-hero)',
-  gold: 'var(--gradient-gold)',
-  teal: 'var(--gradient-teal)',
+  sage: 'var(--gradient-sage)',
+  cream: 'var(--gradient-cream)',
   glow: 'var(--gradient-glow)',
 } as const;
 

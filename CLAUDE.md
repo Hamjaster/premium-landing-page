@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Luxury brand landing page built with React 19, TypeScript, Vite, and Tailwind CSS v4. The design is dark, cinematic, and atmospheric — inspired by RunwayML, ElevenLabs, and SpaceX.
+COSME — a premium natural skincare brand landing page built with React 19, TypeScript, Vite, and Tailwind CSS v4. The design is light, airy, and organic — inspired by Aesop, Glossier, and The Ordinary.
 
 ## Commands
 
@@ -40,11 +40,11 @@ Keep both in sync when adding new tokens.
 
 ### Styling conventions
 
-- Dark mode only — no light mode toggle or theme switching
+- Light mode only — no dark mode toggle or theme switching
 - Satoshi font loaded via Fontshare CDN in `index.html`
 - Responsive design uses `clamp()` for fluid typography and spacing
 - Mobile breakpoints: 768px and 1100px
-- Use glass layers, subtle borders, and gold/teal accent gradients for depth
+- Use soft glass layers, warm borders, and sage/cream accent gradients for depth
 - Refer to `.impeccable.md` for the full design context including color tokens, typography scale, and design principles
 
 ### TypeScript

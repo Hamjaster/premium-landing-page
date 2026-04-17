@@ -1,34 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg-primary: #000000;
-  --color-bg-secondary: #0a0a0a;
-  --color-bg-tertiary: #111111;
+  --color-bg-primary: #FDF8F0;
+  --color-bg-secondary: #F5EDE0;
+  --color-bg-tertiary: #EDE3D5;
 
-  --color-gold-primary: #63522B;
-  --color-gold-light: #8B7340;
-  --color-gold-dark: #4A3D1F;
+  --color-sage-primary: #5C7A62;
+  --color-sage-light: #7A9E82;
+  --color-sage-dark: #3D5A44;
 
-  --color-teal-primary: #08261F;
-  --color-teal-light: #0D3D31;
-  --color-teal-dark: #051A15;
+  --color-cream-accent: #E8D5B7;
+  --color-cream-light: #F2E6D0;
+  --color-cream-dark: #D4B896;
 
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #A0A0A0;
-  --color-text-tertiary: #666666;
-  --color-text-gold: #C9A96E;
+  --color-text-primary: #2D2D2D;
+  --color-text-secondary: #6B6B6B;
+  --color-text-tertiary: #9A9A9A;
+  --color-text-sage: #5C7A62;
 
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-medium: rgba(255, 255, 255, 0.12);
-  --color-border-strong: rgba(255, 255, 255, 0.2);
+  --color-border-subtle: rgba(45, 45, 45, 0.08);
+  --color-border-medium: rgba(45, 45, 45, 0.12);
+  --color-border-strong: rgba(45, 45, 45, 0.2);
 
-  --color-glass-bg: rgba(255, 255, 255, 0.03);
-  --color-glass-border: rgba(255, 255, 255, 0.06);
+  --color-glass-bg: rgba(255, 255, 255, 0.6);
+  --color-glass-border: rgba(255, 255, 255, 0.8);
 
-  --gradient-hero: radial-gradient(ellipse at 50% 0%, #63522B 0%, #08261F 40%, #000000 70%);
-  --gradient-gold: linear-gradient(135deg, #63522B 0%, #C9A96E 50%, #63522B 100%);
-  --gradient-teal: linear-gradient(135deg, #08261F 0%, #0D3D31 100%);
-  --gradient-glow: radial-gradient(circle at 50% 50%, rgba(99, 82, 43, 0.15) 0%, transparent 70%);
+  --gradient-hero: radial-gradient(ellipse at 50% 0%, #F5EDE0 0%, #FDF8F0 40%, #FFFFFF 70%);
+  --gradient-sage: linear-gradient(135deg, #5C7A62 0%, #7A9E82 50%, #5C7A62 100%);
+  --gradient-cream: linear-gradient(135deg, #E8D5B7 0%, #F2E6D0 100%);
+  --gradient-glow: radial-gradient(circle at 50% 50%, rgba(92, 122, 98, 0.1) 0%, transparent 70%);
 
   --font-satoshi: 'Satoshi', system-ui, -apple-system, sans-serif;
 
@@ -59,24 +59,24 @@
   --color-bg-primary: var(--color-bg-primary);
   --color-bg-secondary: var(--color-bg-secondary);
   --color-bg-tertiary: var(--color-bg-tertiary);
-  --color-gold-primary: var(--color-gold-primary);
-  --color-gold-light: var(--color-gold-light);
-  --color-gold-dark: var(--color-gold-dark);
-  --color-teal-primary: var(--color-teal-primary);
-  --color-teal-light: var(--color-teal-light);
-  --color-teal-dark: var(--color-teal-dark);
+  --color-sage-primary: var(--color-sage-primary);
+  --color-sage-light: var(--color-sage-light);
+  --color-sage-dark: var(--color-sage-dark);
+  --color-cream-accent: var(--color-cream-accent);
+  --color-cream-light: var(--color-cream-light);
+  --color-cream-dark: var(--color-cream-dark);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
   --color-text-tertiary: var(--color-text-tertiary);
-  --color-text-gold: var(--color-text-gold);
+  --color-text-sage: var(--color-text-sage);
   --color-border-subtle: var(--color-border-subtle);
   --color-border-medium: var(--color-border-medium);
   --color-border-strong: var(--color-border-strong);
   --color-glass-bg: var(--color-glass-bg);
   --color-glass-border: var(--color-glass-border);
   --gradient-hero: var(--gradient-hero);
-  --gradient-gold: var(--gradient-gold);
-  --gradient-teal: var(--gradient-teal);
+  --gradient-sage: var(--gradient-sage);
+  --gradient-cream: var(--gradient-cream);
   --gradient-glow: var(--gradient-glow);
   --font-satoshi: var(--font-satoshi);
   --radius-sm: var(--radius-sm);
@@ -110,8 +110,8 @@
   }
 
   ::selection {
-    background-color: var(--color-gold-primary);
-    color: var(--color-text-primary);
+    background-color: var(--color-sage-primary);
+    color: #FFFFFF;
   }
 
   ::-webkit-scrollbar {
@@ -128,7 +128,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-gold-primary);
+    background: var(--color-sage-primary);
   }
 }
 
@@ -177,4 +177,3 @@
   opacity: 0;
   animation: title-line-fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
 }
-
