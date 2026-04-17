@@ -46,7 +46,7 @@ function App() {
           scrub: 1.5,
         },
       });
-    }
+    
   });
 
   useGSAP(() => {
