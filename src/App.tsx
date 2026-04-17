@@ -19,6 +19,7 @@ function App() {
   const ecosystemSectionRef = useRef<HTMLElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Shoe float animation: hero right → ecosystem center
   useGSAP(() => {
     if (!imageRef.current || !aboutTextRef.current || !aboutSectionRef.current) return;
 
@@ -39,13 +40,13 @@ function App() {
       {
         clipPath: 'inset(0 0% 0 0)',
         scrollTrigger: {
-          trigger: aboutTextRef.current,
-          start: 'top 80%',
-          end: 'bottom 40%',
-          scrub: 2,
+          trigger: ecosystemSectionRef.current,
+          start: 'top bottom',
+          end: 'top 10%',
+          scrub: 1.5,
         },
-      },
-    );
+      });
+    }
   });
 
   useGSAP(() => {
@@ -237,8 +238,6 @@ function App() {
               We are COSME — a premium organic skincare brand dedicated to harnessing nature's finest ingredients for radiant, healthy skin.
             </p>
           </div>
-
-          <div className="h-[60vh] w-full" />
         </div>
       </section>
 
